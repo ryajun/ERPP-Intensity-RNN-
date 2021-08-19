@@ -47,8 +47,8 @@ class SAHP(nn.Module):
         self.lstm = nn.LSTM(input_size=self.d_model,
                             hidden_size=self.d_model,
                             batch_first=True,
-                            bidirectional=False)
-        self.mlp = nn.Linear(in_features=16, out_features=16)
+                            bidirectional=False)#添加
+        self.mlp = nn.Linear(in_features=16, out_features=16)#添加
         #
         # self.start_layer = nn.Sequential(
         #     nn.Linear(self.d_model, self.d_model, bias=True),
@@ -86,11 +86,11 @@ class SAHP(nn.Module):
         #     x = self.input_sublayer(x, lambda _x: self.attention.forward(_x, _x, _x, mask=src_mask))
         # x = self.dropout(self.output_sublayer(x, self.feed_forward))
 
-        hidden_state, _ = self.lstm(x)
+        hidden_state, _ = self.lstm(x)#修改
 
         # hidden_state = torch.cat((hidden_state, input_time.unsqueeze(-1)), dim=-1)
-        mlp_output = torch.tanh(self.mlp(hidden_state))
-        output = self.dropout(mlp_output)
+        mlp_output = torch.tanh(self.mlp(hidden_state))#修改
+        output = self.dropout(mlp_output)#修改
         self.embed_info = output
         # output = output.unsqueeze(dim=1)
 
